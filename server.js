@@ -14,11 +14,12 @@ if (process.env.NODE_ENV === 'production')
   app.use(express.static(path.join(__dirname, 'build')))
 
 // All Routes
+app.use('/api/user', require('./routes/userRoutes'))
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (_, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'))
+    return res.sendFile(path.join(__dirname, 'build', 'index.html'))
   })
 }
 
-app.listen(PORT, () => console.log('Server listening on PORT ', PORT))
+app.listen(PORT, () => console.log('Server listening on PORT', PORT))
