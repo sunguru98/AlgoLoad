@@ -8,3 +8,13 @@ export const selectAuthAccessToken = createSelector(
 )
 
 export const selectAuthUser = createSelector([selectAuth], auth => auth.user)
+
+export const selectAuthLoading = createSelector(
+  [selectAuth],
+  auth => auth.loading
+)
+
+export const selectAuthErrors = createSelector(
+  [selectAuth],
+  auth => auth.errors
+)

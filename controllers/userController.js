@@ -8,9 +8,10 @@ module.exports = {
       // Checking errors on the request side
       const errors = validationResult(req)
       if (!errors.isEmpty())
-        return res
-          .status(400)
-          .send({ statusCode: 400, message: errors.array() })
+        return res.status(400).send({
+          statusCode: 400,
+          message: errors.array().map(err => ({ [err.param]: err.msg }))
+        })
       const { name, email, password } = req.body
 
       // Checking the db whether email already exists
@@ -18,7 +19,10 @@ module.exports = {
       if (checkUser)
         return res
           .status(400)
-          .send({ statusCode: 400, message: 'Email already exists' })
+          .send({
+            statusCode: 400,
+            message: [{ email: 'Email already exists' }]
+          })
 
       // Creating the user and assigning an access token
       const user = new User({ name, email, password })
@@ -40,9 +44,10 @@ module.exports = {
       // Checking errors on the request side
       const errors = validationResult(req)
       if (!errors.isEmpty())
-        return res
-          .status(400)
-          .send({ statusCode: 400, message: errors.array() })
+        return res.status(400).send({
+          statusCode: 400,
+          message: errors.array().map(err => ({ [err.param]: err.msg }))
+        })
       const { email, password } = req.body
 
       // Finding User details with respect to email and password
