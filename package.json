@@ -1,0 +1,35 @@
+{
+  "name": "algoload",
+  "version": "1.0.0",
+  "description": "A image OCR with autocomplete search",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sunguru98/AlgoLoad.git"
+  },
+  "keywords": [
+    "Image",
+    "OCR"
+  ],
+  "author": "Sundeep Charan Ramkumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sunguru98/AlgoLoad/issues"
+  },
+  "homepage": "https://github.com/sunguru98/AlgoLoad#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.13"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0",
+    "nodemon": "^2.0.1"
+  }
+}
