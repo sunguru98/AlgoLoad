@@ -1,7 +1,7 @@
-const User = require('../models/User')
 const upload = require('../utils/multerUtils')
 const uploadToS3 = require('../utils/awsS3')
 const generateText = require('../utils/imageToText')
+const addObjectToAlgoliaIndex = require('../utils/addObjectToAlgoIndex')
 
 module.exports = {
   async uploadImage(req, res) {
@@ -15,18 +15,40 @@ module.exports = {
                 ? 'Image Limit is 3 to avoid longer waiting times'
                 : err.message
           })
-        const files = req.files
-        const images = await uploadToS3(files)
-        const texts = await generateText(files)
-        console.log(texts)
-        const results = images.map((image, index) => ({
-          ...image,
-          textContent: texts[index]
-        }))
 
-        req.user.datas = [...req.user.datas, ...results]
-        await req.user.save()
-        res.send({ statusCode: 201, results })
+        const user = req.user
+        const files = req.files
+
+        const totalRes = [
+          ...(await uploadToS3(files, req.user)),
+          ...(await generateText(files))
+        ]
+        const newImages = totalRes.slice(0, files.length)
+        const newTexts = totalRes.slice(files.length)
+
+        const results = newImages
+          .map((image, index) => ({
+            ...image,
+            textContent: newTexts[index]
+          }))
+          .filter(({ location, key, textContent }) => {
+            const data = user.datas.find(
+              d =>
+                (d.location === location || d.key === key) &&
+                d.textContent === textContent
+            )
+            return !data ? true : false
+          })
+
+        user.datas = [...user.datas, ...results]
+        user.save()
+        const response = await addObjectToAlgoliaIndex(
+          user._id,
+          newImages.map(image => image.location),
+          texts
+        )
+
+        res.status(201).send({ statusCode: 201, response })
       })
     } catch (err) {
       return res.status(500).send({ statusCode: 500, message: 'Server Error' })

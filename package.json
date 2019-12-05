@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/sunguru98/AlgoLoad#readme",
   "dependencies": {
+    "algoliasearch": "^3.35.1",
     "aws-sdk": "^2.585.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
