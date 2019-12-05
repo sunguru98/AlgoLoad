@@ -5,6 +5,7 @@ const path = require('path')
 dotenv.config()
 
 require('./db')
+require('./utils/awsS3')
 
 const app = express()
 const PORT = process.env.PORT || 9998
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === 'production')
 
 // All Routes
 app.use('/api/user', require('./routes/userRoutes'))
+app.use('/api/image', require('./routes/imageRoutes'))
 
 if (process.env.NODE_ENV === 'production') {
   app.get('*', (_, res) => {

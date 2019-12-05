@@ -19,7 +19,13 @@ const userSchema = new Schema({
     trim: true
   },
   accessToken: String,
-  photos: [String]
+  datas: [
+    {
+      location: String,
+      key: String,
+      textContent: String
+    }
+  ]
 })
 
 userSchema.methods = {
