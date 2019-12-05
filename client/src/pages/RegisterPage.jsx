@@ -47,7 +47,7 @@ const RegisterPage = ({
   }
 
   const handleChange = event => {
-    clearErrors()
+    if (errors) clearErrors()
     setFormState({ ...formState, [event.target.name]: event.target.value })
   }
 

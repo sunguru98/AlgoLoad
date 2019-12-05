@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const MainContainer = styled.section`
-  min-height: calc(100vh);
+  min-height: calc(100vh - 6.4rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,3 +19,30 @@ export const FormContainer = styled.div`
   min-width: 50vw;
 `
 
+export const PortalContainer = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+
+  & img {
+    animation: zoomIn 0.3s;
+  }
+
+  @keyframes zoomIn {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+`

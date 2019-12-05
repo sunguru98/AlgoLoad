@@ -16,7 +16,7 @@ const App = () => {
   Axios.defaults.headers.common['Authorization'] = localStorage.getItem(
     'accessToken'
   )
-
+  
   return (
     <div style={{ minHeight: '100vh', width: '100%' }}>
       <NavBar />
