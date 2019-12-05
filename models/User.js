@@ -19,6 +19,7 @@ const userSchema = new Schema({
     trim: true
   },
   accessToken: String,
+  publicSearchKey: String,
   datas: [
     {
       location: String,

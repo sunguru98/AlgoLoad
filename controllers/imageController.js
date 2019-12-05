@@ -41,14 +41,16 @@ module.exports = {
           })
 
         user.datas = [...user.datas, ...results]
-        user.save()
-        const response = await addObjectToAlgoliaIndex(
+        const { response, publicSearchKey } = await addObjectToAlgoliaIndex(
           user._id,
           newImages.map(image => image.location),
-          texts
+          newTexts.map(newText => newText.slice('\n')[0])
         )
-
-        res.status(201).send({ statusCode: 201, response })
+        user.publicSearchKey = publicSearchKey
+        await user.save()
+        res
+          .status(201)
+          .send({ statusCode: 201, response: { ...response, publicSearchKey } })
       })
     } catch (err) {
       return res.status(500).send({ statusCode: 500, message: 'Server Error' })
