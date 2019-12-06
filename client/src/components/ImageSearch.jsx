@@ -8,8 +8,9 @@ import '../styles/algolia.css'
 import { Title } from '../styles/componentStyles'
 import placeholderImage from '../placeholder.png'
 
-const ImageSearch = ({ user }) => {
-  const searchClient = algoliasearch('HVN8I0GXUS', user.publicSearchKey)
+const ImageSearch = ({ user, key }) => {
+  console.log(user)
+  const searchClient = algoliasearch('HVN8I0GXUS', user.publicSearchKey || key)
 
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const [isImageClicked, setIsImageClicked] = useState(false)

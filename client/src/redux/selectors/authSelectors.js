@@ -18,3 +18,8 @@ export const selectAuthErrors = createSelector(
   [selectAuth],
   auth => auth.errors
 )
+
+export const selectAuthPublicKey = createSelector(
+  [selectAuth],
+  auth => auth.publicKey
+)

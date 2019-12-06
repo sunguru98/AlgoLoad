@@ -1,6 +1,6 @@
 import actionTypes from '../actionTypes'
 import Axios from 'axios'
-import { put, takeLatest, all, call } from 'redux-saga/effects'
+import { put, takeLatest, all, call, delay } from 'redux-saga/effects'
 import history from '../createHistory'
 
 const {
@@ -22,7 +22,7 @@ function* onImageUpload() {
       yield put({ type: SET_IMAGE_DATAS, payload: datas })
       yield put({ type: SET_PUBLIC_KEY, payload: publicKey })
       yield alert('Upload Successful')
-      yield history.push('/dashboard')
+      yield delay(100, history.push('/dashboard'))
     } catch (err) {
       yield alert(err)
       return
