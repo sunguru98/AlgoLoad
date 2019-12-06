@@ -18,9 +18,9 @@ app.use('/api/user', require('./routes/userRoutes'))
 app.use('/api/image', require('./routes/imageRoutes'))
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'build')))
+  app.use(express.static(path.join(__dirname, 'client', 'build')))
   app.get('*', (_, res) => {
-    return res.sendFile(path.join(__dirname, 'build', 'index.html'))
+    return res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
   })
 }
 
