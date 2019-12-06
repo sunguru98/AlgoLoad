@@ -8,13 +8,14 @@ import { selectAuthUser } from '../redux/selectors/authSelectors'
 import { createStructuredSelector } from 'reselect'
 
 import ImageSearch from '../components/ImageSearch'
+import { selectImageDatas } from '../redux/selectors/imageSelectors'
 
-const DashboardPage = ({ user, history }) => {
+const DashboardPage = ({ user, history, datas }) => {
   return (
     <MainContainer>
-      {!user.photos.length ? (
+      {user.datas.length || datas.length ? (
         <ImageSearch
-          photos={user.photos}
+          datas={user.datas || datas}
           options={[
             { title: 'Title1' },
             { title: 'Title2' },
@@ -37,7 +38,8 @@ const DashboardPage = ({ user, history }) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-  user: selectAuthUser
+  user: selectAuthUser,
+  datas: selectImageDatas
 })
 
 export default connect(mapStateToProps)(DashboardPage)

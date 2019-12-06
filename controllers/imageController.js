@@ -18,6 +18,7 @@ module.exports = {
 
         const user = req.user
         const files = req.files
+        console.log(files)
 
         const totalRes = [
           ...(await uploadToS3(files, req.user)),
@@ -48,9 +49,7 @@ module.exports = {
         )
         user.publicSearchKey = publicSearchKey
         await user.save()
-        res
-          .status(201)
-          .send({ statusCode: 201, response: { ...response, publicSearchKey } })
+        res.status(201).send({ statusCode: 201, datas: user.datas })
       })
     } catch (err) {
       return res.status(500).send({ statusCode: 500, message: 'Server Error' })
