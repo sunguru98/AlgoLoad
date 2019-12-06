@@ -10,18 +10,14 @@ import { createStructuredSelector } from 'reselect'
 import ImageSearch from '../components/ImageSearch'
 import { selectImageDatas } from '../redux/selectors/imageSelectors'
 
+import { Helmet } from 'react-helmet'
+
 const DashboardPage = ({ user, history, datas }) => {
   return (
     <MainContainer>
+      <Helmet><title>AlgoLoad - Dashboard</title></Helmet>
       {user.datas.length || datas.length ? (
-        <ImageSearch
-          datas={user.datas || datas}
-          options={[
-            { title: 'Title1' },
-            { title: 'Title2' },
-            { title: 'Title3' }
-          ]}
-        />
+        <ImageSearch user={user} />
       ) : (
         <Fragment>
           <h2 style={{ color: 'white' }}>Welcome to AlgoLoad.</h2>

@@ -11,9 +11,11 @@ import {
 } from '../styles/componentStyles'
 
 import { connect } from 'react-redux'
-import { uploadImage } from '../redux/actions/imageActions'
 import { createStructuredSelector } from 'reselect'
+import { uploadImage } from '../redux/actions/imageActions'
 import { selectImageLoading } from '../redux/selectors/imageSelectors'
+
+import { Helmet } from 'react-helmet'
 
 const UploadsPage = ({ uploadImage, imageLoading }) => {
   const [files, setFiles] = useState([])
@@ -61,6 +63,9 @@ const UploadsPage = ({ uploadImage, imageLoading }) => {
 
   return (
     <MainContainer>
+      <Helmet>
+        <title>AlgoLoad - Uploads</title>
+      </Helmet>
       <h2 style={{ color: 'white' }}>Upload your images.</h2>
       <small style={{ color: 'white', fontSize: '1.4rem', margin: '1.5rem' }}>
         (Please note that the conversion process might take between 10 - 15
@@ -68,9 +73,7 @@ const UploadsPage = ({ uploadImage, imageLoading }) => {
       </small>
 
       {!imageLoading ? (
-        <form
-          style={{ display: 'flex', flexDirection: 'column' }}
-          onSubmit={handleSubmit}>
+        <form className='upload-form' onSubmit={handleSubmit}>
           <DropZoneContainer
             {...getRootProps({ isDragActive, isDragAccept, isDragReject })}>
             <input {...getInputProps()} />

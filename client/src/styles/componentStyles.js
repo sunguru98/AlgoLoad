@@ -1,20 +1,14 @@
 import styled from 'styled-components'
 import { Button, TextField, CircularProgress } from '@material-ui/core'
-import { Autocomplete } from '@material-ui/lab'
 
-export const CustomAutoComplete = styled(Autocomplete)`
-  width: 50vw;
-  font-size: 1.8rem;
-  color: white;
-  & input,
-  & label {
-    color: white !important;
-    font-weight: bold;
+export const Title = styled.h1`
+  color: ${({ inverted }) => (inverted ? 'white' : 'inherit')};
+  @media screen and (max-width: 43.75em) {
+    margin-top: 2rem;
   }
-  & svg {
-    height: 2.5rem;
-    width: 2.5rem;
-    fill: white;
+  @media screen and (max-width: 28.125em) {
+    font-size: 3rem;
+    margin-top: 4rem;
   }
 `
 
@@ -25,6 +19,11 @@ export const CustomButton = styled(Button)`
       navbutton === 'false' ? '1.6rem' : '1.3rem'} !important;
   }
   padding: 1rem 2rem !important;
+  @media screen and (max-width: 37.5em) {
+    padding: ${props => (props.navbutton ? '5px !important' : 'none')};
+    font-size: ${({ navbutton }) =>
+      navbutton === 'false' ? '1.5rem' : '1rem'} !important;
+  }
   background: ${({ primary }) =>
     primary === 'true' ? '#2ecc71' : '#ff4d4d'} !important;
 `
