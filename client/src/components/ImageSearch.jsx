@@ -8,16 +8,15 @@ import '../styles/algolia.css'
 import { Title } from '../styles/componentStyles'
 import placeholderImage from '../placeholder.png'
 
-const ImageSearch = ({ user, key }) => {
-  console.log(user)
-  const searchClient = algoliasearch('HVN8I0GXUS', user.publicSearchKey || key)
+const ImageSearch = ({ user }) => {
+  const searchClient = algoliasearch('HVN8I0GXUS', user.publicSearchKey)
 
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const [isImageClicked, setIsImageClicked] = useState(false)
   const [image, setImage] = useState(null)
 
   return (
-    <InstantSearch searchClient={searchClient} indexName='dev_USERS'>
+    <InstantSearch searchClient={searchClient} indexName='prod_USERS'>
       <Title inverted style={{ marginBottom: '2rem' }}>
         Dashboard. Text Search
       </Title>

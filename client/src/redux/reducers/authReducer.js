@@ -5,16 +5,14 @@ const {
   CLEAR_USER,
   CLEAR_ERRORS,
   SET_AUTH_ERROR,
-  SET_AUTH_LOADING,
-  SET_PUBLIC_KEY
+  SET_AUTH_LOADING
 } = actionTypes
 
 const initialState = {
   user: JSON.parse(localStorage.getItem('user')) || null,
   accessToken: localStorage.getItem('accessToken') || null,
   loading: false,
-  errors: null,
-  publicKey: null
+  errors: null
 }
 
 export default (state = initialState, action) => {
@@ -23,9 +21,6 @@ export default (state = initialState, action) => {
     case SET_USER:
       localStorage.setItem('user', JSON.stringify(payload))
       return { ...state, user: payload }
-
-    case SET_PUBLIC_KEY:
-      return { ...state, publicKey: payload }
 
     case SET_AUTH_ERROR:
       return { ...state, errors: [...payload] }
@@ -44,8 +39,7 @@ export default (state = initialState, action) => {
         user: null,
         accessToken: null,
         loading: false,
-        errors: null,
-        publicKey: null
+        errors: null
       }
 
     case CLEAR_ERRORS:

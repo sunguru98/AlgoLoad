@@ -4,25 +4,21 @@ import { MainContainer } from '../styles/commonStyles'
 import { CustomButton } from '../styles/componentStyles'
 
 import { connect } from 'react-redux'
-import {
-  selectAuthUser,
-  selectAuthPublicKey
-} from '../redux/selectors/authSelectors'
+import { selectAuthUser } from '../redux/selectors/authSelectors'
 import { createStructuredSelector } from 'reselect'
 
 import ImageSearch from '../components/ImageSearch'
-import { selectImageDatas } from '../redux/selectors/imageSelectors'
 
 import { Helmet } from 'react-helmet'
 
-const DashboardPage = ({ user, history, datas, publicKey }) => {
+const DashboardPage = ({ user, history }) => {
   return (
     <MainContainer>
       <Helmet>
         <title>AlgoLoad - Dashboard</title>
       </Helmet>
-      {user.datas.length || datas.length ? (
-        <ImageSearch user={user} key={publicKey} />
+      {user.datas.length ? (
+        <ImageSearch user={user} />
       ) : (
         <Fragment>
           <h2 style={{ color: 'white' }}>Welcome to AlgoLoad.</h2>
@@ -39,9 +35,7 @@ const DashboardPage = ({ user, history, datas, publicKey }) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-  user: selectAuthUser,
-  publicKey: selectAuthPublicKey,
-  datas: selectImageDatas
+  user: selectAuthUser
 })
 
 export default connect(mapStateToProps)(DashboardPage)

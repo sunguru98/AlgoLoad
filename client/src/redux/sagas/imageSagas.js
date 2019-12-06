@@ -3,12 +3,7 @@ import Axios from 'axios'
 import { put, takeLatest, all, call, delay } from 'redux-saga/effects'
 import history from '../createHistory'
 
-const {
-  UPLOAD_IMAGE,
-  SET_IMAGE_DATAS,
-  SET_IMAGE_LOADING,
-  SET_PUBLIC_KEY
-} = actionTypes
+const { UPLOAD_IMAGE, SET_USER, SET_IMAGE_LOADING } = actionTypes
 
 function* onImageUpload() {
   yield takeLatest(UPLOAD_IMAGE, function*({ payload }) {
@@ -16,13 +11,12 @@ function* onImageUpload() {
       yield put({ type: SET_IMAGE_LOADING, payload: true })
 
       const {
-        data: { datas, publicKey }
+        data: { user }
       } = yield Axios.post('/api/image', payload)
 
-      yield put({ type: SET_IMAGE_DATAS, payload: datas })
-      yield put({ type: SET_PUBLIC_KEY, payload: publicKey })
+      yield put({ type: SET_USER, payload: user })
       yield alert('Upload Successful')
-      yield delay(100, history.push('/dashboard'))
+      yield history.push('/dashboard')
     } catch (err) {
       yield alert(err)
       return
