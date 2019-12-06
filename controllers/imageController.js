@@ -18,7 +18,6 @@ module.exports = {
 
         const user = req.user
         const files = req.files
-        console.log(files)
 
         const totalRes = [
           ...(await uploadToS3(files, req.user)),
@@ -42,14 +41,20 @@ module.exports = {
           })
 
         user.datas = [...user.datas, ...results]
-        const { response, publicSearchKey } = await addObjectToAlgoliaIndex(
+        const { publicSearchKey } = await addObjectToAlgoliaIndex(
           user._id,
           newImages.map(image => image.location),
-          newTexts.map(newText => newText.slice('\n')[0])
+          newTexts.map(newText => newText)
         )
         user.publicSearchKey = publicSearchKey
         await user.save()
-        res.status(201).send({ statusCode: 201, datas: user.datas })
+        res
+          .status(201)
+          .send({
+            statusCode: 201,
+            datas: user.datas,
+            publicKey: publicSearchKey
+          })
       })
     } catch (err) {
       return res.status(500).send({ statusCode: 500, message: 'Server Error' })

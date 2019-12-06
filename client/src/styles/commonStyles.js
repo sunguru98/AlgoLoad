@@ -9,6 +9,30 @@ export const MainContainer = styled.section`
   background: #00d2ff;
   background: -webkit-linear-gradient(to right, #00d2ff, #3a7bd5);
   background: linear-gradient(to right, #00d2ff, #3a7bd5);
+
+  & .upload-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 37.5em) {
+    min-height: calc(100vh - 5.6rem);
+    h1 {
+      font-size: 2.5rem;
+    }
+    h1,
+    h2,
+    small {
+      text-align: center;
+    }
+    h2 {
+      width: 60vw;
+      font-size: 2rem;
+    }
+    .upload-form {
+      margin: 0 2rem;
+    }
+  }
 `
 
 export const FormContainer = styled.div`

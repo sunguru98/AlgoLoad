@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
+
 import { MainContainer, FormContainer } from '../styles/commonStyles'
 import {
   CustomTextField,
@@ -20,6 +21,8 @@ import {
   addErrorMessage,
   clearErrors
 } from '../redux/actions/authActions'
+
+import { Helmet } from 'react-helmet'
 
 const RegisterPage = ({
   user,
@@ -53,6 +56,7 @@ const RegisterPage = ({
 
   return (
     <MainContainer>
+      <Helmet><title>AlgoLoad - Register</title></Helmet>
       <FormContainer>
         <h2 style={{ textAlign: 'center' }}>Join us !</h2>
         <CustomForm onSubmit={handleSubmit}>

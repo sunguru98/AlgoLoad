@@ -17,12 +17,10 @@ module.exports = {
       // Checking the db whether email already exists
       const checkUser = await User.findOne({ email })
       if (checkUser)
-        return res
-          .status(400)
-          .send({
-            statusCode: 400,
-            message: [{ email: 'Email already exists' }]
-          })
+        return res.status(400).send({
+          statusCode: 400,
+          message: [{ email: 'Email already exists' }]
+        })
 
       // Creating the user and assigning an access token
       const user = new User({ name, email, password })
@@ -83,6 +81,15 @@ module.exports = {
       res
         .status(202)
         .send({ statusCode: 202, message: 'Logged out successfully' })
+    } catch (err) {
+      res.status(500).send({ statusCode: 500, message: 'Server Error' })
+    }
+  },
+
+  // Fetch User Details
+  async fetchUser(req, res) {
+    try {
+      res.send({ statusCode: 200, user: req.user })
     } catch (err) {
       res.status(500).send({ statusCode: 500, message: 'Server Error' })
     }

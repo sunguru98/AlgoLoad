@@ -3,7 +3,8 @@ const router = new Router()
 const {
   signInUser,
   signOutUser,
-  registerUser
+  registerUser,
+  fetchUser
 } = require('../controllers/userController')
 const authenticate = require('../middleware/authenticate')
 const { check } = require('express-validator')
@@ -40,5 +41,10 @@ router.post('/signin', signInUser)
 // @desc - Logout a user
 // @auth - Private (Auth middleware)
 router.delete('/logout', authenticate, signOutUser)
+
+// @route - GET /api/user
+// @desc -  Fetch Current User
+// @auth - Private (Auth middleware)
+router.get('/', authenticate, fetchUser)
 
 module.exports = router

@@ -11,12 +11,22 @@ import RegisterPage from './pages/RegisterPage'
 import DashboardPage from './pages/DashboardPage'
 import UploadsPage from './pages/UploadsPage'
 
-const App = () => {
+import { connect } from 'react-redux'
+import { logOutUser } from './redux/actions/authActions'
+
+const App = ({ logOutUser }) => {
   // Setting default headers after login
   Axios.defaults.headers.common['Authorization'] = localStorage.getItem(
     'accessToken'
   )
-  
+
+  Axios.interceptors.response.use(
+    response => response,
+    error => {
+      if (error.response.data.statusCode === 401) logOutUser()
+    }
+  )
+
   return (
     <div style={{ minHeight: '100vh', width: '100%' }}>
       <NavBar />
@@ -32,4 +42,8 @@ const App = () => {
   )
 }
 
-export default App
+const mapDispatchToProps = dispatch => ({
+  logOutUser: () => dispatch(logOutUser())
+})
+
+export default connect(null, mapDispatchToProps)(App)

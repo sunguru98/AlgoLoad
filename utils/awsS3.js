@@ -23,8 +23,7 @@ const createUploadParams = file => ({
   Bucket: process.env.AWS_BUCKET_NAME,
   Key: file.originalname,
   ACL: 'public-read',
-  Body: file.buffer,
-  ServerSideEncryption: 'aws:kms'
+  Body: file.buffer
 })
 
 const uploadImages = async (files, user) => {

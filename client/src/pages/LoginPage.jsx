@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { MainContainer, FormContainer } from '../styles/commonStyles'
 import { Redirect } from 'react-router-dom'
+
+import { MainContainer, FormContainer } from '../styles/commonStyles'
 import {
   CustomTextField,
   CustomForm,
@@ -16,6 +17,8 @@ import {
   selectAuthUser
 } from '../redux/selectors/authSelectors'
 import { signInUser } from '../redux/actions/authActions'
+
+import { Helmet } from 'react-helmet'
 
 const RegisterPage = ({ user, loading, errors, signInUser }) => {
   const [formState, setFormState] = useState({
@@ -36,6 +39,7 @@ const RegisterPage = ({ user, loading, errors, signInUser }) => {
 
   return (
     <MainContainer>
+      <Helmet><title>AlgoLoad - Login</title></Helmet>
       <FormContainer>
         <h2 style={{ textAlign: 'center' }}>Welcome back !</h2>
         <CustomForm onSubmit={handleSubmit}>
